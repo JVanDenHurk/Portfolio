@@ -1,8 +1,24 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown, Github, ExternalLink, Code, Database, Globe, Smartphone } from 'lucide-react';
+import { ChevronDown, Github, ExternalLink, Code, Database, Globe } from 'lucide-react';
+import './App.css';
+
+// Type definitions
+type Star = {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  twinkle: boolean;
+};
+
+type ShootingStar = {
+  id: number;
+  top: number;
+};
 
 // Star component
-const Star = ({ x, y, size, opacity, twinkle }) => (
+const Star = ({ x, y, size, opacity, twinkle }: Star) => (
   <div
     className={`absolute bg-white rounded-full ${twinkle ? 'animate-pulse' : ''}`}
     style={{
@@ -16,7 +32,7 @@ const Star = ({ x, y, size, opacity, twinkle }) => (
 );
 
 // Shooting star component
-const ShootingStar = ({ top }) => (
+const ShootingStar = ({ top }: ShootingStar) => (
   <div
     className="absolute w-1 h-1 bg-white rounded-full"
     style={{
@@ -28,13 +44,12 @@ const ShootingStar = ({ top }) => (
 );
 
 function App() {
-  const [stars, setStars] = useState([]);
-  const [shootingStars, setShootingStars] = useState([]);
-  const [planets, setPlanets] = useState([]);
+  const [stars, setStars] = useState<Star[]>([]);
+  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
 
   // Generate stars and planets
   useEffect(() => {
-    const newStars = [];
+    const newStars: Star[] = [];
     for (let i = 0; i < 150; i++) {
       newStars.push({
         id: i,
@@ -46,7 +61,6 @@ function App() {
       });
     }
     setStars(newStars);
-
   }, []);
 
   // Shooting stars randomly
@@ -62,7 +76,7 @@ function App() {
     };
 
     const interval = setInterval(() => {
-      if (Math.random() < 0.4) {
+      if (Math.random() < 0.1) {
         spawnShootingStar();
       }
     }, 2000);
@@ -79,7 +93,7 @@ function App() {
       icon: <Globe className="w-6 h-6" />,
       github: "#",
       live: "#",
-      color: "from-blue-500 to-purple-600"
+      color: "from-blue-500 to-purple-600",
     },
     {
       id: 2,
@@ -89,7 +103,7 @@ function App() {
       icon: <Code className="w-6 h-6" />,
       github: "#",
       live: "#",
-      color: "from-green-500 to-teal-600"
+      color: "from-green-500 to-teal-600",
     },
     {
       id: 3,
@@ -99,107 +113,107 @@ function App() {
       icon: <Database className="w-6 h-6" />,
       github: "#",
       live: "#",
-      color: "from-orange-500 to-red-600"
-    }
-    // Add more projects as needed
+      color: "from-orange-500 to-red-600",
+    },
   ];
 
   const scrollToProjects = () => {
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById('projects');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
-      {/* Custom animations */}
-      <style jsx>{`
-        @keyframes shootingStar {
-          0% {
-            transform: translateX(0px) translateY(0px);
-            opacity: 1;
-          }
-          100% {
-            transform: translateX(100vw) translateY(100px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes floatPlanet {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        .float-animation {
-          animation: float 6s ease-in-out infinite;
-        }
-      `}</style>
-
       {/* Background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {stars.map((star) => (
           <Star key={star.id} {...star} />
         ))}
         {shootingStars.map((star) => (
-          <ShootingStar key={star.id} top={star.top} />
+          <ShootingStar key={star.id} top={star.top} id={0} />
         ))}
       </div>
 
-{/* Hero section */}
-<section className="min-h-screen flex flex-col items-center justify-center relative px-4">
-  {/* Background gradient overlay */}
-  <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-blue-900 opacity-30 -z-10"></div>
 
-  <div className="text-center z-10 max-w-3xl">
-    <h1 className="text-5xl sm:text-7xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 float-animation">
-      Justin Van Den Hurk
-    </h1>
-    <h2 className="text-xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-4 tracking-widest">
-      Developing one app at a time.
-    </h2>
+      {/* Hero section */}
+      <section className="min-h-screen flex flex-col items-center justify-center relative px-4">
+        {/* Background gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-blue-900 opacity-30 -z-10"></div>
 
-    <div
-      onClick={scrollToProjects}
-      role="button"
-      tabIndex={0}
-      aria-label="Scroll to projects"
-      className="cursor-pointer group inline-block"
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') scrollToProjects(); }}
-    >
-      <ChevronDown className="w-12 h-12 mx-auto text-blue-400 animate-bounce group-hover:text-purple-400 transition-colors duration-300" />
-      <p className="text-sm text-gray-400 mt-2 group-hover:text-white transition-colors duration-300">
-        Scroll to explore my work
-      </p>
-    </div>
-  </div>
-</section>
+
+        {/* GitHub Planet */}
+        <a
+          href="https://github.com/JVanDenHurk"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub Link"
+          className="absolute top-50 left-50 w-20 h-20 rounded-full bg-black shadow-lg shadow-purple-500/50 hover:scale-110 hover:shadow-xl transition-transform duration-300 flex items-center justify-center"
+          style={{
+            boxShadow: '0 0 20px hsla(194, 91%, 65%, 0.8)',
+          }}
+        >
+          <Github className="w-10 h-10 text-white" />
+        </a>
+
+        <div className="text-center z-10 max-w-3xl">
+          <h1 className="pb-2 text-5xl sm:text-7xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 float-animation">
+            Justin Van Den Hurk
+          </h1>
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-4 tracking-widest">
+            Developing one app at a time.
+          </h2>
+
+          <div
+            onClick={scrollToProjects}
+            role="button"
+            tabIndex={0}
+            aria-label="Scroll to projects"
+            className="cursor-pointer group inline-block"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') scrollToProjects();
+            }}
+          >
+            <ChevronDown className="w-12 h-12 mx-auto text-blue-400 animate-bounce group-hover:text-purple-400 transition-colors duration-300" />
+            <p className="text-sm text-gray-400 mt-2 group-hover:text-white transition-colors duration-300">
+              Scroll to explore my work
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Projects */}
       <section id="projects" className="min-h-screen py-20 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="pb-2 text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             My Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <div
                 key={project.id}
                 className="group relative bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 hover:bg-gray-800/70 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-gray-700/50 hover:border-purple-500/50"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`} />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}
+                />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
                     <div className={`p-3 rounded-lg bg-gradient-to-br ${project.color} text-white`}>
                       {project.icon}
                     </div>
                     <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <a href={project.github} className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200">
+                      <a
+                        href={project.github}
+                        className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200"
+                      >
                         <Github className="w-4 h-4" />
                       </a>
-                      <a href={project.live} className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200">
+                      <a
+                        href={project.live}
+                        className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200"
+                      >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
@@ -227,9 +241,7 @@ function App() {
 
       {/* Footer */}
       <footer className="py-12 text-center relative z-10 border-t border-gray-800/50">
-        <p className="text-gray-400">
-          © 2025 Justin
-        </p>
+        <p className="text-gray-400">© 2025 Justin</p>
       </footer>
     </div>
   );
