@@ -47,7 +47,6 @@ function App() {
   const [stars, setStars] = useState<Star[]>([]);
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
 
-  // Generate stars and planets
   useEffect(() => {
     const newStars: Star[] = [];
     for (let i = 0; i < 150; i++) {
@@ -63,24 +62,18 @@ function App() {
     setStars(newStars);
   }, []);
 
-  // Shooting stars randomly
   useEffect(() => {
     const spawnShootingStar = () => {
       const id = Date.now();
       const top = Math.random() * 70;
       setShootingStars([{ id, top }]);
-
       setTimeout(() => {
         setShootingStars([]);
       }, 3000);
     };
-
     const interval = setInterval(() => {
-      if (Math.random() < 0.1) {
-        spawnShootingStar();
-      }
+      if (Math.random() < 0.1) spawnShootingStar();
     }, 2000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -90,9 +83,7 @@ function App() {
       title: "E-Commerce Platform",
       description: "Full-stack e-commerce solution with React, Node.js, and MongoDB.",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      icon: <Globe className="w-6 h-6" />,
-      github: "#",
-      live: "#",
+      icon: <Globe className="w-6 h-6" />, github: "#", live: "#",
       color: "from-blue-500 to-purple-600",
     },
     {
@@ -100,9 +91,7 @@ function App() {
       title: "Task Management App",
       description: "Collaborative task management with drag-and-drop and real-time updates.",
       technologies: ["React", "Firebase", "Tailwind CSS"],
-      icon: <Code className="w-6 h-6" />,
-      github: "#",
-      live: "#",
+      icon: <Code className="w-6 h-6" />, github: "#", live: "#",
       color: "from-green-500 to-teal-600",
     },
     {
@@ -110,38 +99,26 @@ function App() {
       title: "Data Analytics Dashboard",
       description: "Real-time data visualization with charts and graphs.",
       technologies: ["React", "D3.js", "Python", "FastAPI"],
-      icon: <Database className="w-6 h-6" />,
-      github: "#",
-      live: "#",
+      icon: <Database className="w-6 h-6" />, github: "#", live: "#",
       color: "from-orange-500 to-red-600",
-    },
+    }
   ];
 
   const scrollToProjects = () => {
     const section = document.getElementById('projects');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
-      {/* Background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {stars.map((star) => (
-          <Star key={star.id} {...star} />
-        ))}
-        {shootingStars.map((star) => (
-          <ShootingStar key={star.id} top={star.top} id={0} />
-        ))}
+        {stars.map((star) => <Star key={star.id} {...star} />)}
+        {shootingStars.map((star) => <ShootingStar key={star.id} top={star.top} id={0} />)}
       </div>
 
-
-      {/* Hero section */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative px-4">
-        {/* Background gradient overlay */}
+      {/* Hero Section */}
+      <section className="min-h-screen flex flex-col items-center justify-center relative px-4 pt-32 pb-20 sm:pt-40 sm:pb-32">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-blue-900 opacity-30 -z-10"></div>
-
 
         {/* GitHub Planet */}
         <a
@@ -149,19 +126,88 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub Link"
-          className="absolute top-50 left-50 w-20 h-20 rounded-full bg-black shadow-lg shadow-purple-500/50 hover:scale-110 hover:shadow-xl transition-transform duration-300 flex items-center justify-center"
-          style={{
-            boxShadow: '0 0 20px hsla(194, 91%, 65%, 0.8)',
-          }}
+          className="hidden sm:flex absolute left-10 top-10 md:left-[10rem] md:top-[12rem] w-12 h-12 md:w-20 md:h-20 rounded-full bg-black shadow-lg hover:scale-110 transition-transform duration-300 items-center justify-center z-30"
+          style={{ boxShadow: '0 0 20px rgb(255, 255, 255)' }}
         >
-          <Github className="w-10 h-10 text-white" />
+          <Github className="w-6 h-6 md:w-10 md:h-10 text-white" />
         </a>
 
+        {/* Email Planet */}
+        <a
+          href="mailto:justin.t.hurk@gmail.com"
+          aria-label="Email Justin"
+          className="hidden sm:flex absolute right-10 top-40 md:top-[14rem] md:right-[10rem] w-12 h-12 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-500 to-yellow-500 items-center justify-center hover:scale-110 transition-transform duration-300 z-30 shadow-lg"
+          style={{ boxShadow: '0 0 20px #C5221F' }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 md:w-10 md:h-10 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.03l8 6.47 8-6.47V18H4z" />
+          </svg>
+        </a>
+
+        {/* LinkedIn Planet */}
+        <a
+          href="https://www.linkedin.com/in/justin-tom-van-den-hurk/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Profile"
+          className="hidden sm:flex absolute left-10 bottom-10 md:left-[6rem] md:bottom-[12rem] w-12 h-12 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 items-center justify-center hover:scale-110 transition-transform duration-300 z-30 shadow-lg text-xl md:text-3xl font-bold text-white"
+          style={{ boxShadow: '0 0 20px #55c9f7' }}
+        >
+          in
+        </a>
+
+        {/* Mobile */}
+        <div className="absolute top-30 left-1/2 transform -translate-x-1/2 flex space-x-8 sm:hidden z-50">
+          {/* GitHub */}
+          <a
+            href="https://github.com/JVanDenHurk"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Link"
+            className="w-10 h-10 rounded-full bg-black shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300"
+          >
+            <Github className="w-6 h-6 text-white" />
+          </a>
+
+          {/* Email */}
+          <a
+            href="mailto:justin.t.hurk@gmail.com"
+            aria-label="Email Justin"
+            className="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-yellow-500 flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6 text-white"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.03l8 6.47 8-6.47V18H4z" />
+            </svg>
+          </a>
+
+          {/* LinkedIn */}
+          <a
+            href="https://www.linkedin.com/in/justin-tom-van-den-hurk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+            className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg text-2xl font-bold text-white"
+          >
+            in
+          </a>
+        </div>
+
+
         <div className="text-center z-10 max-w-3xl">
-          <h1 className="pb-2 text-5xl sm:text-7xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 float-animation">
+          <h1 className="pb-2 text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6 float-animation">
             Justin Van Den Hurk
           </h1>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-light text-gray-300 mb-4 tracking-widest">
+          <h2 className="text-lg sm:text-2xl md:text-4xl font-light text-gray-300 mb-4 tracking-widest">
             Developing one app at a time.
           </h2>
 
@@ -171,11 +217,9 @@ function App() {
             tabIndex={0}
             aria-label="Scroll to projects"
             className="cursor-pointer group inline-block"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') scrollToProjects();
-            }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') scrollToProjects(); }}
           >
-            <ChevronDown className="w-12 h-12 mx-auto text-blue-400 animate-bounce group-hover:text-purple-400 transition-colors duration-300" />
+            <ChevronDown className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-blue-400 animate-bounce group-hover:text-purple-400 transition-colors duration-300" />
             <p className="text-sm text-gray-400 mt-2 group-hover:text-white transition-colors duration-300">
               Scroll to explore my work
             </p>
@@ -186,7 +230,7 @@ function App() {
       {/* Projects */}
       <section id="projects" className="min-h-screen py-20 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="pb-2 text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="pb-2 text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             My Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -203,17 +247,11 @@ function App() {
                     <div className={`p-3 rounded-lg bg-gradient-to-br ${project.color} text-white`}>
                       {project.icon}
                     </div>
-                    <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <a
-                        href={project.github}
-                        className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200"
-                      >
+                    <div className="flex space-x-2">
+                      <a href={project.github} className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200">
                         <Github className="w-4 h-4" />
                       </a>
-                      <a
-                        href={project.live}
-                        className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200"
-                      >
+                      <a href={project.live} className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200">
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
@@ -239,7 +277,6 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-12 text-center relative z-10 border-t border-gray-800/50">
         <p className="text-gray-400">© 2025 Justin</p>
       </footer>
