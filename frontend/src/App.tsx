@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown, Github, ExternalLink, Code, Database, Speech} from 'lucide-react';
+import { ChevronDown, Github, ExternalLink, Code, Speech} from 'lucide-react';
 import './App.css';
 
 
