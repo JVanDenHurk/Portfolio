@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown, Github, ExternalLink, Code, Database, Globe } from 'lucide-react';
+import { ChevronDown, Github, ExternalLink, Code, Database, Speech} from 'lucide-react';
 import './App.css';
+
 
 // Type definitions
 type Star = {
@@ -80,28 +81,28 @@ function App() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and MongoDB.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      icon: <Globe className="w-6 h-6" />, github: "#", live: "#",
-      color: "from-blue-500 to-purple-600",
+      title: "Board Game Script Reader",
+      description: "A React Native app that lets players access and listen to the board game Etherfields story scripts.",
+      technologies: [  "React", "React Native", "Expo", "TypeScript", "Node.js", "JavaScript", "JSON Data Handling"],
+      icon: <Speech className="w-6 h-6" />, github: "https://github.com/JVanDenHurk/ess.web", live: "https://etherfieldssecretscripts.netlify.app/",
+      color: "from-gray-500 to-black-600",
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "Collaborative task management with drag-and-drop and real-time updates.",
-      technologies: ["React", "Firebase", "Tailwind CSS"],
-      icon: <Code className="w-6 h-6" />, github: "#", live: "#",
+      title: "Cybersecurity Portfolio",
+      description: "A simple HTML and CSS portfolio showcasing my interest in cybersecurity.",
+      technologies: ["HTML", "CSS", "GitHub Pages"],
+      icon: <Code className="w-6 h-6" />, github: "https://github.com/JVanDenHurk/jvandenhurk.github.io", live: "https://jvandenhurk.github.io/",
       color: "from-green-500 to-teal-600",
     },
-    {
-      id: 3,
-      title: "Data Analytics Dashboard",
-      description: "Real-time data visualization with charts and graphs.",
-      technologies: ["React", "D3.js", "Python", "FastAPI"],
-      icon: <Database className="w-6 h-6" />, github: "#", live: "#",
-      color: "from-orange-500 to-red-600",
-    }
+    // {
+    //   id: 3,
+    //   title: "Data Analytics Dashboard",
+    //   description: "Real-time data visualization with charts and graphs.",
+    //   technologies: ["React", "D3.js", "Python", "FastAPI"],
+    //   icon: <Database className="w-6 h-6" />, github: "#", live: "#",
+    //   color: "from-orange-500 to-red-600",
+    // }
   ];
 
   const scrollToProjects = () => {
@@ -230,7 +231,7 @@ function App() {
       {/* Projects */}
       <section id="projects" className="min-h-screen py-20 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="pb-2 text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="pb-2 text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-400 bg-clip-text text-transparent">
             My Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -248,10 +249,10 @@ function App() {
                       {project.icon}
                     </div>
                     <div className="flex space-x-2">
-                      <a href={project.github} className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200">
+                      <a href={project.github} target="_blank" className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200">
                         <Github className="w-4 h-4" />
                       </a>
-                      <a href={project.live} className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200">
+                      <a href={project.live} target="_blank" className="p-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-200">
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
@@ -277,8 +278,8 @@ function App() {
         </div>
       </section>
 
-      <footer className="py-12 text-center relative z-10 border-t border-gray-800/50">
-        <p className="text-gray-400">© 2025 Justin</p>
+      <footer className="py-4 text-center relative z-10 border-t border-gray-800/50">
+        <p className="text-gray-400">© 2025 - Made with ☕ by Justin Van Den Hurk</p>
       </footer>
     </div>
   );
